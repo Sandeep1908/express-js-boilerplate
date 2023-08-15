@@ -19,4 +19,14 @@ app.get("/webhook/:merchantId", paymentRequestHandler);
 app.get("/pay", (req, res) =>
   res.sendFile(join(__dirname, "../UI/index.html"))
 );
+
+app.get("/checkout.html", (req, res) =>
+  res.sendFile(join(__dirname, "../checkout/checkout.html"))
+);
+app.get("/checkout.js", (req, res) =>
+  res.sendFile(join(__dirname, "../checkout/checkout.js"))
+);
+app.get("/checkout.css", (req, res) =>
+  res.sendFile(join(__dirname, "../checkout/checkout.css"))
+);
 app.listen(process.env.PORT, () => console.log(" app listening on port 3000!"));

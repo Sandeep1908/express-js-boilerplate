@@ -93,7 +93,7 @@
             },
           });
           response.text().then((secret) => {
-            anchor.href = `https://1509-2406-7400-54-45da-38ca-64d4-e333-ba57.ngrok-free.app/checkout/checkout.html?payment_intent_client_secret=${secret}`;
+            anchor.href = `/checkout.html?payment_intent_client_secret=${secret}`;
             anchor.innerText = "Pay Here";
             block.classList.toggle("unhide");
           });
