@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment</title>
+  </head>
+  <style>
+    .unhide {
+      display: none;
+    }
+  </style>
+  <body style="background-color: rgb(217, 213, 213)">
+    <div
+      style="
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div style="margin: auto">
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 500px;
+          "
+        >
+          <h1>Hello Stripe.!</h1>
+          <div>
+            <input
+              type="text"
+              placeholder="0.00"
+              style="
+                border: none;
+                padding: 15px;
+                border-radius: 4px;
+                outline: none;
+              "
+              id="input-amt"
+            />
+          </div>
+
+          <div>
+            <button
+              style="
+                padding: 10px;
+                margin-top: 10px;
+                background-color: rgb(68, 68, 222);
+                color: white;
+                cursor: pointer;
+              "
+              id="btn"
+            >
+              Submit
+            </button>
+          </div>
+          <div style="padding: 10px" class="unhide" id="block">
+            <a
+              href=""
+              id="anchor"
+              style="
+                padding-top: 20px;
+                text-align: center;
+                text-decoration: none;
+              "
+              >sdfsdfsf</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let btn = document.querySelector("#btn");
+      console.log(btn);
+
+      btn.addEventListener("click", async () => {
+        let amount = parseInt(document.getElementById("input-amt").value);
+        let anchor = document.getElementById("anchor");
+        let block = document.getElementById("block");
+        console.log(amount);
+
+        if (amount <= 300) {
+          const response = await fetch("/payment-request", {
+            method: "POST",
+            body: JSON.stringify({ price: amount }),
+            headers: {
+              "content-type": "application/json",
+            },
+          });
+          response.text().then((secret) => {
+            anchor.href = `https://1509-2406-7400-54-45da-38ca-64d4-e333-ba57.ngrok-free.app/checkout/checkout.html?payment_intent_client_secret=${secret}`;
+            anchor.innerText = "Pay Here";
+            block.classList.toggle("unhide");
+          });
+        }
+
+        if (amount > 300 && amount < 2000) {
+          anchor.href = "https://www.ekademy.net/pay.html";
+          anchor.innerText = "Pay Here";
+          block.classList.toggle("unhide");
+        }
+
+        if (amount >= 2000 && amount < 3000) {
+          anchor.href = "https://smartchain.consulting/nft-checkout";
+          anchor.innerText = "Pay Here";
+          block.classList.toggle("unhide");
+        }
+
+        if (amount >= 3000) {
+          anchor.href = "https://smartchain-consulting.pages.dev/checkout";
+          anchor.innerText = "Pay Here";
+          block.classList.toggle("unhide");
+        }
+      });
+    </script>
+  </body>
+</html>
